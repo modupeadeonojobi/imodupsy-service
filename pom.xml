@@ -65,7 +65,6 @@
     </dependency>
   </dependencies>
 
-
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (maybe moved to parent pom) -->
       <plugins>
@@ -101,7 +100,6 @@
               <artifactId>mapstruct-processor</artifactId>
               <version>${org.mapstruct.version}</version>
             </path>
-            <!-- other annotation processors -->
           </annotationProcessorPaths>
         </configuration>
       </plugin>
