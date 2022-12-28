@@ -32,3 +32,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### MongoDB ###
+mongodb/data/
+mongodb/data/log/mongod.log
+mongodb/data/**/*.log
+/mongodb/data/**/*.log
+mongo-data
