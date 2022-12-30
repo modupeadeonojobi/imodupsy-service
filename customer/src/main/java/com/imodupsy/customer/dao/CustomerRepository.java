@@ -8,4 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @created 26/12/2022
  */
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
+
 }

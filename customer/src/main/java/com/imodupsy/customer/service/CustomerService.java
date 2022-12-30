@@ -16,23 +16,24 @@ import org.springframework.web.client.RestTemplate;
 @AllArgsConstructor
 public class CustomerService {
 
-    private final CustomerRepository customerRepository;
-    private final RestTemplate restTemplate;
+	private final CustomerRepository customerRepository;
 
-    public void registerCustomer(CustomerRegistrationRequest request) throws IllegalAccessException {
-        Customer customer = Customer.builder()
-                .firstName(request.firstName())
-                .lastName(request.lastName())
-                .email(request.email())
-                .build();
-        customerRepository.saveAndFlush(customer);
+	private final RestTemplate restTemplate;
 
-        FraudCheckResponse fraudCheckResponse = restTemplate.getForObject("http://localhost:8081/api/v1/fraud-check/{customerId}",
-                FraudCheckResponse.class, customer.getId());
+	public void registerCustomer(CustomerRegistrationRequest request)
+			throws IllegalAccessException {
+		Customer customer = Customer.builder().firstName(request.firstName())
+				.lastName(request.lastName()).email(request.email()).build();
+		customerRepository.saveAndFlush(customer);
 
-        if (fraudCheckResponse.isFraudster()) {
-            throw new IllegalAccessException("fraudster ");
-        }
+		FraudCheckResponse fraudCheckResponse = restTemplate.getForObject(
+				"http://localhost:8081/api/v1/fraud-check/{customerId}",
+				FraudCheckResponse.class, customer.getId());
 
-    }
+		if (fraudCheckResponse.isFraudster()) {
+			throw new IllegalAccessException("fraudster ");
+		}
+
+	}
+
 }

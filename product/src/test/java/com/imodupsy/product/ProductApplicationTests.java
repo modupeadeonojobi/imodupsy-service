@@ -2,7 +2,9 @@ package com.imodupsy.product;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.imodupsy.product.dto.ProductRequestDto;
+import com.imodupsy.product.model.Product;
 import com.imodupsy.product.repository.ProductRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -39,9 +41,15 @@ public class ProductApplicationTests {
     @Autowired
     private ProductRepository productRepository;
 
+
     @DynamicPropertySource
     static void setProperties(DynamicPropertyRegistry dymDynamicPropertyRegistry) {
         dymDynamicPropertyRegistry.add("spring.data.mongodb.uri", mongoDBContainer::getReplicaSetUrl);
+    }
+
+    @AfterEach
+    void cleanUp() {
+        productRepository.deleteAll();
     }
 
    @Test
@@ -54,7 +62,6 @@ public class ProductApplicationTests {
                         .content(productRequestString))
                 .andExpect(status().isCreated());
         assertEquals(1, productRepository.findAll().size());
-
     }
 
     private ProductRequestDto getProductRequest() {
@@ -63,5 +70,18 @@ public class ProductApplicationTests {
                 .description("iPhone 13")
                 .price(BigDecimal.valueOf(1200))
                 .build();
+    }
+
+    @Test
+    public void shouldGetAllProduct() throws Exception {
+        productRepository.save(Product.builder()
+                .name("iPhone 13")
+                .description("iPhone 13")
+                .price(BigDecimal.valueOf(1200))
+                .build());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/product"))
+                .andExpect(status().isOk());
+        assertEquals(1, productRepository.findAll().size());
     }
 }
