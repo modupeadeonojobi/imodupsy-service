@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class OrderController {
 
-    private final OrderService orderService;
+	private final OrderService orderService;
 
-    @PostMapping
-    public ResponseEntity<?> createProduct(
-            @RequestBody OrderRequestDto orderRequestDto ) {
-        orderService.placeOrder(orderRequestDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
+	@PostMapping
+	public ResponseEntity<?> createProduct(@RequestBody OrderRequestDto orderRequestDto) {
+		orderService.placeOrder(orderRequestDto);
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+
 }

@@ -16,28 +16,28 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class AppStartup{
+public class AppStartup {
 
-//    private final InventoryRepository inventoryRepository;
-//
-//    @Override
-//    public void onApplicationEvent(ApplicationReadyEvent event) {
-////        loadData();
-//    }
+	// private final InventoryRepository inventoryRepository;
+	//
+	// @Override
+	// public void onApplicationEvent(ApplicationReadyEvent event) {
+	//// loadData();
+	// }
 
-//    public CommandLineRunner loadData(InventoryRepository inventoryRepository) {
-//        return args -> {
-//            Inventory inventory = new Inventory();
-//            inventory.setSkuCode("iphone_13");
-//            inventory.setQuantity(100);
-//
-//            Inventory inventory1 = new Inventory();
-//            inventory1.setSkuCode("iphone_13_red");
-//            inventory1.setQuantity(0);
-//
-//            inventoryRepository.save(inventory);
-//            inventoryRepository.save(inventory1);
-//        };
-//    }
+	// public CommandLineRunner loadData(InventoryRepository inventoryRepository) {
+	// return args -> {
+	// Inventory inventory = new Inventory();
+	// inventory.setSkuCode("iphone_13");
+	// inventory.setQuantity(100);
+	//
+	// Inventory inventory1 = new Inventory();
+	// inventory1.setSkuCode("iphone_13_red");
+	// inventory1.setQuantity(0);
+	//
+	// inventoryRepository.save(inventory);
+	// inventoryRepository.save(inventory1);
+	// };
+	// }
 
 }

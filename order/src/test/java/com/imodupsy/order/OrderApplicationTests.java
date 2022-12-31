@@ -29,20 +29,27 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class OrderApplicationTests {
 
 	@Container
-	public static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer("postgres:11.1");
+	public static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer(
+			"postgres:11.1");
 
 	@Autowired
 	private MockMvc mockMvc;
+
 	@Autowired
 	private ObjectMapper objectMapper;
+
 	@Autowired
 	private OrderRepository orderRepository;
 
 	@DynamicPropertySource
-	static void setPostgresSQLProperties(DynamicPropertyRegistry dymDynamicPropertyRegistry) {
-		dymDynamicPropertyRegistry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
-		dymDynamicPropertyRegistry.add("spring.datasource.username", postgreSQLContainer::getUsername);
-		dymDynamicPropertyRegistry.add("spring.datasource.password", postgreSQLContainer::getPassword);
+	static void setPostgresSQLProperties(
+			DynamicPropertyRegistry dymDynamicPropertyRegistry) {
+		dymDynamicPropertyRegistry.add("spring.datasource.url",
+				postgreSQLContainer::getJdbcUrl);
+		dymDynamicPropertyRegistry.add("spring.datasource.username",
+				postgreSQLContainer::getUsername);
+		dymDynamicPropertyRegistry.add("spring.datasource.password",
+				postgreSQLContainer::getPassword);
 	}
 
 	@Test
@@ -51,8 +58,7 @@ class OrderApplicationTests {
 		String orderRequestString = objectMapper.writeValueAsString(orderRequest);
 
 		mockMvc.perform(MockMvcRequestBuilders.post("/api/order")
-						.contentType(MediaType.APPLICATION_JSON)
-						.content(orderRequestString))
+				.contentType(MediaType.APPLICATION_JSON).content(orderRequestString))
 				.andExpect(status().isCreated());
 	}
 
@@ -62,7 +68,6 @@ class OrderApplicationTests {
 		order.setOrderLineItemsList(getOrderLineItemsList());
 		return order;
 	}
-
 
 	private List<OrderLineItems> getOrderLineItemsList() {
 		OrderLineItems orderLineItems = new OrderLineItems();

@@ -1,22 +1,22 @@
 package com.imodupsy.order.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
+/**
+ * @author iModupsy
+ * @created 31/12/2022
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderLineItemsDto {
-
-	private Long id;
+@Builder
+public class InventoryResponseDto {
 
 	private String skuCode;
 
-	private BigDecimal price;
-
-	private Integer quantity;
+	private boolean isInStock;
 
 }
