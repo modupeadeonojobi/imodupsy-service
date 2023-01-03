@@ -23,7 +23,7 @@ public class OrderService {
 
 	private final OrderRepository orderRepository;
 
-	private final WebClient webClient;
+	private final WebClient.Builder webClientBuilder;
 
 	private final OrderMapper orderMapper;
 
@@ -40,11 +40,11 @@ public class OrderService {
 				.map(OrderLineItems::getSkuCode).toList();
 
 		// Call inventory service and place order if it's in stock.
-		InventoryResponseDto[] inventoryResponsesArray = webClient.get()
-				.uri("http://localhost:8082/api/inventory",
+		InventoryResponseDto[] inventoryResponsesArray = webClientBuilder.build().get()
+				.uri("http://inventory/api/inventory",
 						uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes).build())
 				.retrieve().bodyToMono(InventoryResponseDto[].class).block();
-		Arrays.stream(inventoryResponsesArray).forEach(System.out::println);
+
 
 		// Checking if all the responses from isInStock are the same.
 		boolean allProductInStock = Arrays.stream(inventoryResponsesArray).allMatch(InventoryResponseDto::isInStock);
