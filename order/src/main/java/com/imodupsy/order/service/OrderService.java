@@ -27,7 +27,7 @@ public class OrderService {
 
 	private final OrderMapper orderMapper;
 
-	public void placeOrder(OrderRequestDto orderRequestDto) {
+	public String placeOrder(OrderRequestDto orderRequestDto) {
 		Order order = new Order();
 		order.setOrderNumber(UUID.randomUUID().toString());
 
@@ -51,6 +51,7 @@ public class OrderService {
 
 		if (allProductInStock) {
 			orderRepository.save(order);
+			return "Order Placed Successfully";
 		}
 		else {
 			throw new IllegalArgumentException(
